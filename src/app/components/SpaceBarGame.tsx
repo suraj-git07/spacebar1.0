@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 
-const SpaceBarGame: React.FC = () => {
+interface SpaceBarGameProps {
+    difficulty: number;
+}
+
+const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
     const canvasWidth = window.innerWidth;
@@ -101,7 +105,7 @@ const SpaceBarGame: React.FC = () => {
             wd: 240,
             hd: 50,
 
-            dx: 2,
+            dx: difficulty,
 
             draw: function () {
                 ctx.drawImage(sprite, this.sX, this.sY, this.w, this.h, this.x, this.y, this.wd, this.hd);
@@ -133,7 +137,7 @@ const SpaceBarGame: React.FC = () => {
             wd: 240,
             hd: 80,
 
-            dx: 2,
+            dx: difficulty,
 
             draw: function () {
                 ctx.drawImage(sprite, this.sX, this.sY, this.w, this.h, this.x, this.y, this.wd, this.hd);
@@ -295,7 +299,7 @@ const SpaceBarGame: React.FC = () => {
             hd: 550,
             gap: 120,
             maxYPos: -(150),
-            dx: 2, // Initial speed
+            dx: difficulty, // Initial speed
             speedIncrement: 0.003,
             maxSpeed: 10,
 
@@ -315,8 +319,8 @@ const SpaceBarGame: React.FC = () => {
 
             update: function () {
                 if (state.current !== state.game) return;
-
-                if (frames % 100 == 0) {
+                const spawnInterval = 100 - (difficulty - 2) * 15;
+                if (frames % spawnInterval == 0) {
                     this.position.push({
                         x: cvs.width,
                         y: this.maxYPos * (Math.random() + 1)

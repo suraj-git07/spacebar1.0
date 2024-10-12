@@ -4,6 +4,7 @@ import GameModal from "./GameModal";
 import WaitModal from "./waitModal";
 import GameDescriptionModal from "./GameDescModal";
 import Image from 'next/image';
+import DifficultyModal from './DifficultyModal';
 
 const HeroSection = () => {
   // const [modal, setmodal] = useState(false);
@@ -13,6 +14,14 @@ const HeroSection = () => {
   const [multiplayerModal, setMultiplayerModal] = useState(false);
   const [descModal, setDescModal] = useState(true);
 
+  const [difficultyModalOpen, setDifficultyModalOpen] = useState(false);
+  const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard' | null>(null);
+
+  const handleSelectDifficulty = (selectedDifficulty: 'easy' | 'medium' | 'hard') => {
+    setDifficulty(selectedDifficulty);
+    setDifficultyModalOpen(false);
+    setGameModalOpen(true);
+  };
 
   // const handleIncrement = () => {
   //   setValue(value + 100);
@@ -52,7 +61,7 @@ const HeroSection = () => {
             priority
           />
           <button
-            onClick={() => setGameModalOpen(true)}
+            onClick={() => setDifficultyModalOpen(true)}
             className="bg-slate-900 m-auto text-gray-300 font-mono  flex mb-8 py-3 justify-center rounded-xl w-10/12 uppercase font-regular text-2xl mx-auto max-md:text-xl"
           >
             Play solo
@@ -135,8 +144,13 @@ const HeroSection = () => {
         </div>
       </div> */}
 
+      <DifficultyModal
+        isOpen={difficultyModalOpen}
+        onClose={() => setDifficultyModalOpen(false)}
+        onSelectDifficulty={handleSelectDifficulty}
+      />
       <WaitModal isOpen={multiplayerModal} onClose={() => setMultiplayerModal(false)} />
-      <GameModal isOpen={gameModalOpen} onClose={() => setGameModalOpen(false)} />
+      <GameModal isOpen={gameModalOpen} difficulty={difficulty} onClose={() => setGameModalOpen(false)} />
       <GameDescriptionModal isOpen={descModal} onClose={() => setDescModal(false)} />
     </div>
   );

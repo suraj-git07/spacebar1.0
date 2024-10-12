@@ -4,12 +4,14 @@ import SpaceBarGame from "./SpaceBarGame";
 
 interface GameModalProps {
     isOpen: boolean;
+    difficulty: 'easy' | 'medium' | 'hard' | null;
     onClose: () => void;
 }
 
-const GameModal: React.FC<GameModalProps> = ({ isOpen, onClose }) => {
+const GameModal: React.FC<GameModalProps> = ({ isOpen, difficulty, onClose }) => {
     if (!isOpen) return null;
 
+    const difficultyLevel = difficulty === 'easy' ? 2 : difficulty === 'medium' ? 4 : 6;
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 overflow-hidden">
@@ -21,7 +23,7 @@ const GameModal: React.FC<GameModalProps> = ({ isOpen, onClose }) => {
                     <X size={24} className="text-white" />
                 </button>
                 <div className="flex flex-col items-center h-full">
-                    <SpaceBarGame />
+                    <SpaceBarGame difficulty={difficultyLevel} />
                 </div>
             </div>
         </div>
