@@ -392,7 +392,7 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
                     // Draw "Best:" label
                     ctx.fillText("Best ", cvs.width / 2 + 50, cvs.height / 2 - 200);
                     // Draw the best score value
-                    ctx.fillText(String(this.value), cvs.width / 2 + 67, cvs.height / 2 - 180);
+                    ctx.fillText(String(localStorage.getItem("best")), cvs.width / 2 + 67, cvs.height / 2 - 180);
 
                 }
 
