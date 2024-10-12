@@ -377,18 +377,18 @@ const SpaceBarGame: React.FC = () => {
 
                 } else if (state.current == state.over) {
                     // SCORE VALUE
-                    ctx.font = "30px Teko";
+                    ctx.font = "25px Teko";
 
                     // Draw "Score:" label
-                    ctx.fillText("Score ", cvs.width / 2 - 200, cvs.height / 2 - 50);
+                    ctx.fillText("Score ", cvs.width / 2 - 100, cvs.height / 2 - 200);
                     // Draw the actual score value
-                    ctx.fillText(String(this.value), cvs.width / 2 - 125, cvs.height / 2 - 50);
+                    ctx.fillText(String(this.value), cvs.width / 2 - 80, cvs.height / 2 - 180);
 
                     // BEST SCORE
                     // Draw "Best:" label
-                    ctx.fillText("Best ", cvs.width / 2 + 125, cvs.height / 2 - 50);
+                    ctx.fillText("Best ", cvs.width / 2 + 50, cvs.height / 2 - 200);
                     // Draw the best score value
-                    ctx.fillText(String(this.value), cvs.width / 2 + 190, cvs.height / 2 - 50);
+                    ctx.fillText(String(this.value), cvs.width / 2 + 60, cvs.height / 2 - 180);
 
                 }
 
