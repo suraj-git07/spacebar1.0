@@ -1,10 +1,19 @@
 import React from 'react'
+import Image from 'next/image'
 
 const Navbar = () => {
   return (
     <div className='  fixed w-full top-0 left-0'>
       <div className='w-11/12 flex justify-between m-auto py-3'>
-        <img src="Logo.png" alt="" className='w-[200px]  max-md:w-[150px] max-sm:w-[180px]' />
+        <Image
+          src="/Logo.png"
+          alt=""
+          width={200}
+          height={0}
+          className="max-md:w-[150px] max-sm:w-[180px]"
+          sizes="(max-width: 640px) 180px, (max-width: 768px) 150px, 200px"
+          priority
+        />
 
         {/* <div className='flex'>
             <img src="23.png" alt="" className='w-[45px] h-[45px] m-auto' />

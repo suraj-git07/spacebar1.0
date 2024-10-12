@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import GameModal from "./GameModal";
 import WaitModal from "./waitModal";
 import GameDescriptionModal from "./GameDescModal";
+import Image from 'next/image';
 
 const HeroSection = () => {
   // const [modal, setmodal] = useState(false);
@@ -24,7 +25,15 @@ const HeroSection = () => {
     <div className="bg-[url('../../public/homebg.jpg')] w-full h-[108vh] bg-center bg-cover max-md:h-[130vh] ">
       <div className="pt-20 w-10/12 m-auto flex justify-around h-screen max-md:flex-col">
         <div className="bg-[#ffffff60] my-auto rounded-xl text-center shadow-lg w-[350px] max-md:w-[300px] max-md:mx-auto max-md:mt-10">
-          <img src="multi.png" alt="" className="w-[220px] mx-auto my-5 max-md:w-[200px]" />
+          <Image
+            src="/multi.png"
+            alt=""
+            width={220}
+            height={0}
+            className="mx-auto my-5 max-md:w-[200px]"
+            sizes="(max-width: 768px) 200px, 220px"
+            priority
+          />
           <button
             onClick={() => setMultiplayerModal(true)}
             className="bg-slate-900 text-gray-300 m-auto flex mb-8 py-3 justify-center rounded-xl w-10/12 uppercase font-regular font-mono text-2xl max-md:text-xl"
@@ -33,7 +42,15 @@ const HeroSection = () => {
           </button>
         </div>
         <div className="bg-[#ffffff60] my-auto rounded-xl text-center shadow-lg w-[350px] max-md:w-[300px] max-md:mx-auto max-md:my-10">
-          <img src="solo.png" alt="" className="w-[220px] mx-auto my-5 max-md:w-[180px]" />
+          <Image
+            src="/solo.png"
+            alt=""
+            width={220}
+            height={0}
+            className="mx-auto my-5 max-md:w-[180px]"
+            sizes="(max-width: 768px) 180px, 220px"
+            priority
+          />
           <button
             onClick={() => setGameModalOpen(true)}
             className="bg-slate-900 m-auto text-gray-300 font-mono  flex mb-8 py-3 justify-center rounded-xl w-10/12 uppercase font-regular text-2xl mx-auto max-md:text-xl"

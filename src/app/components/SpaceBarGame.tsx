@@ -182,7 +182,7 @@ const SpaceBarGame: React.FC = () => {
             },
 
             draw: function () {
-                let man = this.animation[this.frame];
+                const man = this.animation[this.frame];
                 ctx.save();
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.rotation);
@@ -325,9 +325,9 @@ const SpaceBarGame: React.FC = () => {
 
 
                 for (let i = 0; i < this.position.length; i++) {
-                    let p = this.position[i];
+                    const p = this.position[i];
 
-                    let bottomPipeYPos = p.y + this.hd + this.gap;
+                    const bottomPipeYPos = p.y + this.hd + this.gap;
 
                     // COLLISION DETECTION
                     // TOP lazer
