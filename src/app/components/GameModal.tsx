@@ -1,5 +1,6 @@
 import React from "react";
 import { X } from "lucide-react";
+import SpaceBarGame from "./SpaceBarGame";
 
 interface GameModalProps {
     isOpen: boolean;
@@ -8,6 +9,7 @@ interface GameModalProps {
 
 const GameModal: React.FC<GameModalProps> = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
+
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 overflow-hidden">
@@ -19,12 +21,7 @@ const GameModal: React.FC<GameModalProps> = ({ isOpen, onClose }) => {
                     <X size={24} className="text-white" />
                 </button>
                 <div className="flex flex-col items-center h-full">
-                    <iframe
-                        src="/spaceBar-game/index.html"
-                        className="w-[calc(100%-20px)] h-[calc(100%-20px)] mt-2 rounded-lg border-2 border-gray-600 shadow-lg"
-                        title="SpaceBar1.0"
-                        style={{ border: 'none' }}
-                    ></iframe>
+                    <SpaceBarGame />
                 </div>
             </div>
         </div>
