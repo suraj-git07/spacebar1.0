@@ -31,8 +31,8 @@ const HeroSection = () => {
   // };
 
   return (
-    <div className="bg-[url('../../public/homebg.jpg')] w-full h-[108vh] bg-center bg-cover max-md:h-[130vh] ">
-      <div className="pt-20 w-10/12 m-auto flex justify-around h-screen max-md:flex-col">
+    <div className="bg-[url('../../public/homebg.jpg')] w-full h-[108vh]  bg-center bg-cover max-md:h-[130vh] ">
+      <div className="pt-20 w-10/12 m-auto flex justify-around h-screen  max-md:flex-col">
         <div className="bg-[#ffffff60] my-auto rounded-xl text-center shadow-lg w-[350px] max-md:w-[300px] max-md:mx-auto max-md:mt-10">
           <Image
             src="/multi.png"
