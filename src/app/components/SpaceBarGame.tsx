@@ -186,7 +186,7 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
             period: 30,
 
             draw: function () {
-                let bird = this.animation[this.frame];
+                const bird = this.animation[this.frame];
 
                 ctx.save();
                 ctx.translate(this.x, this.y);
@@ -306,10 +306,10 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
 
             draw: function () {
                 for (let i = 0; i < this.position.length; i++) {
-                    let p = this.position[i];
+                    const p = this.position[i];
 
-                    let topYPos = p.y;
-                    let bottomYPos = p.y + this.h + this.gap;
+                    const topYPos = p.y;
+                    const bottomYPos = p.y + this.h + this.gap;
 
                     // top pipe
                     ctx.drawImage(sprite, this.top.sX, this.top.sY, this.w, this.h, p.x, topYPos, this.w, this.h);
@@ -331,9 +331,9 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
                     });
                 }
                 for (let i = 0; i < this.position.length; i++) {
-                    let p = this.position[i];
+                    const p = this.position[i];
 
-                    let bottomPipeYPos = p.y + this.h + this.gap;
+                    const bottomPipeYPos = p.y + this.h + this.gap;
 
                     // COLLISION DETECTION
                     // TOP PIPE

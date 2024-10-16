@@ -1,4 +1,4 @@
-
+import Image from 'next/image';
 import React from "react";
 import { X } from 'lucide-react';
 
@@ -23,10 +23,16 @@ const WaitModal: React.FC<WaitModalProps> = ({ isOpen, onClose }) => {
 
                 {/* Modal Content */}
                 <div className="flex flex-col items-center">
-                    <img
-                        src="mulbg.jpeg"
-                        alt="Multiplayer"
-                        className="w-[500px] h-auto rounded-lg shadow-lg" // Image with rounded corners and shadow
+
+
+                    <Image
+                        src="/mulbg.jpeg"
+                        alt=""
+                        width={320}
+                        height={0}
+                        className="w-[500px] h-auto rounded-lg shadow-lg"
+
+                        priority
                     />
                     <p className="mt-6 text-xl font-thin font-sans text-slate-300 tracking-wide">
                         Multiplayer Mode Launching Soon...
