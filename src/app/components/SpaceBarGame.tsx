@@ -243,7 +243,7 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
             sY: 228,
             w: 173,
             h: 152,
-            x: cvs.width / 2 - 200 / 2,
+            x: cvs.width / 2 - 223 / 2,
             y: 80,
             wd: 223,
             hd: 200,
@@ -387,8 +387,8 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
                 } else if (state.current == state.over) {
                     // SCORE VALUE
                     ctx.font = "28px Teko";
-                    ctx.fillText(String(this.value), cvs.width / 2 + 100, 206);
-                    ctx.strokeText(String(this.value), cvs.width / 2 + 100, 206);
+                    ctx.fillText(String(this.value), cvs.width / 2 + 80, 206);
+                    ctx.strokeText(String(this.value), cvs.width / 2 + 80, 206);
                     // BEST SCORE
                     ctx.fillText(String(this.best), cvs.width / 2 + 80, 258);
                     ctx.strokeText(String(this.best), cvs.width / 2 + 80, 258);

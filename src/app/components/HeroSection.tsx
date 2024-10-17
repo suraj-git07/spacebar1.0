@@ -31,7 +31,7 @@ const HeroSection = () => {
   // };
 
   return (
-    <div className="bg-[url('../../public/bgimg.jpg')] w-full h-[100vh] max-sm:w-50  bg-center bg-cover max-md:h-[130vh] ">
+    <div className="bg-[url('../../public/bgimg.jpg')] w-full h-[100vh]  from-blue-200 via-blue-400 to-blue-900 max-sm:bg-[url('../../public/homemob.png')] max-sm:w-50  bg-center bg-cover max-md:h-[130vh] " >
       <div className="pt-20 w-10/12 m-auto flex justify-around h-screen  max-md:flex-col">
         <div className="bg-[#ffffff52] my-auto rounded-xl border-2 border-blue-400 text-center shadow-lg w-[350px] max-md:w-[300px] max-md:mx-auto max-md:mt-10">
           <Image
@@ -163,7 +163,7 @@ const HeroSection = () => {
       <WaitModal isOpen={multiplayerModal} onClose={() => setMultiplayerModal(false)} />
       <GameModal isOpen={gameModalOpen} difficulty={difficulty} onClose={() => setGameModalOpen(false)} />
       <GameDescriptionModal isOpen={descModal} onClose={() => setDescModal(false)} />
-    </div>
+    </div >
   );
 };
 
