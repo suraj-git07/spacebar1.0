@@ -11,10 +11,10 @@ const GameDescriptionModal: React.FC<GameDescriptionModalProps> = ({ isOpen, onC
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-lg flex justify-center items-center z-50">
-            <div className="relative w-[90%] max-w-[800px] max-sm:w-[380px] max-sm:h-[560px] h-[400px] mx-auto bg-gray-800 bg-opacity-90 rounded-lg p-6 shadow-lg flex flex-col items-center">
+            <div className="relative w-[90%] max-w-[800px] max-sm:w-[380px] max-sm:h-[560px] h-[400px] mx-auto bg-gradient-to-b from-cyan-500 via-blue-600 to-blue-800  bg-opacity-90 rounded-lg p-6 shadow-lg flex flex-col items-center">
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-white hover:bg-gray-700 p-2 rounded-full"
+                    className="absolute top-4 right-4 text-white hover:bg-blue-500 p-2 rounded-full"
                 >
                     <X size={24} className="text-white" />
                 </button>

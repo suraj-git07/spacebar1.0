@@ -31,26 +31,35 @@ const HeroSection = () => {
   // };
 
   return (
-    <div className="bg-[url('../../public/homebg.jpg')] w-full h-[108vh]  bg-center bg-cover max-md:h-[130vh] ">
+    <div className="bg-[url('../../public/bgimg.jpg')] w-full h-[100vh] max-sm:w-50  bg-center bg-cover max-md:h-[130vh] ">
       <div className="pt-20 w-10/12 m-auto flex justify-around h-screen  max-md:flex-col">
-        <div className="bg-[#ffffff60] my-auto rounded-xl text-center shadow-lg w-[350px] max-md:w-[300px] max-md:mx-auto max-md:mt-10">
+        <div className="bg-[#ffffff52] my-auto rounded-xl border-2 border-blue-400 text-center shadow-lg w-[350px] max-md:w-[300px] max-md:mx-auto max-md:mt-10">
           <Image
             src="/multi.png"
             alt=""
             width={220}
             height={0}
-            className="mx-auto my-5 max-md:w-[200px]"
+            className="mx-auto my-5 max-md:w-[200px] max-sm:w-48 rounded-md "
             sizes="(max-width: 768px) 200px, 220px"
             priority
+            unoptimized
           />
-          <button
+          {/* <button
             onClick={() => setMultiplayerModal(true)}
             className="bg-slate-900 text-gray-300 m-auto flex mb-8 py-3 justify-center rounded-xl w-10/12 uppercase font-regular font-mono text-2xl max-md:text-xl"
           >
             Play with Friends
+          </button> */}
+          <button
+            onClick={() => setMultiplayerModal(true)}
+            className="relative z-30 inline-flex items-center justify-center w-auto px-8 py-3 overflow-hidden font-bold text-gray-500 transition-all duration-500 border mb-5 border-gray-200 rounded-md cursor-pointer group ease bg-gradient-to-b from-white to-gray-50 hover:from-gray-50 hover:to-white active:to-white font-regular font-mono text-xl max-md:text-xl"
+          >
+            <span className="w-full h-0.5 absolute bottom-0 left-0 bg-gray-100 group-active:bg-transparent"></span>
+            <span className="h-full w-0.5 absolute bottom-0 right-0 bg-gray-100 group-active:bg-transparent"></span>
+            Play With Friends
           </button>
         </div>
-        <div className="bg-[#ffffff60] my-auto rounded-xl text-center shadow-lg w-[350px] max-md:w-[300px] max-md:mx-auto max-md:my-10">
+        <div className="bg-[#ffffff52] my-auto rounded-xl text-center shadow-lg w-[350px] max-md:w-[300px] max-md:mx-auto max-md:my-10 border-2 border-blue-400">
           <Image
             src="/solo.png"
             alt=""
@@ -62,8 +71,10 @@ const HeroSection = () => {
           />
           <button
             onClick={() => setDifficultyModalOpen(true)}
-            className="bg-slate-900 m-auto text-gray-300 font-mono  flex mb-8 py-3 justify-center rounded-xl w-10/12 uppercase font-regular text-2xl mx-auto max-md:text-xl"
+            className="relative z-30 inline-flex items-center justify-center w-auto px-8 py-3 overflow-hidden font-bold text-gray-500 transition-all duration-500 border mb-5 border-gray-200 rounded-md cursor-pointer group ease bg-gradient-to-b from-white to-gray-50  hover:from-gray-50 hover:to-white active:to-white font-regular font-mono text-xl max-md:text-xl"
           >
+            <span className="w-full h-0.5 absolute bottom-0 left-0 bg-gray-100 group-active:bg-transparent"></span>
+            <span className="h-full w-0.5 absolute bottom-0 right-0 bg-gray-100 group-active:bg-transparent"></span>
             Play solo
           </button>
         </div>

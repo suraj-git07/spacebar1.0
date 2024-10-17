@@ -18,7 +18,7 @@ const GameModal: React.FC<GameModalProps> = ({ isOpen, difficulty, onClose }) =>
             <div className="relative w-full h-full mx-auto bg-gray-800 bg-opacity-80 rounded-md backdrop-blur-md shadow-lg overflow-hidden">
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-white p-2 rounded-full hover:bg-gray-700 transition duration-200"
+                    className="absolute top-4 right-4 text-white p-2 rounded-full hover:bg-blue-400 transition duration-200"
                 >
                     <X size={24} className="text-white" />
                 </button>

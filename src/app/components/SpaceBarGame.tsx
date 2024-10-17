@@ -68,9 +68,9 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
 
         const restartBtn = {
             x: cvs.width / 2 - 30,
-            y: cvs.height / 2 - 20,
+            y: cvs.height / 2 - 50,
             w: 96,
-            h: 39
+            h: 45
         }
 
 
@@ -262,7 +262,7 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
             sY: 228,
             w: 225,
             h: 202,
-            x: cvs.width / 2 - 225 / 2,
+            x: (cvs.width / 2) - (275 / 2),
             y: 90,
             wd: 275,
             hd: 252,
@@ -390,8 +390,8 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
                     ctx.fillText(String(this.value), cvs.width / 2 + 100, 206);
                     ctx.strokeText(String(this.value), cvs.width / 2 + 100, 206);
                     // BEST SCORE
-                    ctx.fillText(String(this.best), cvs.width / 2 + 100, 258);
-                    ctx.strokeText(String(this.best), cvs.width / 2 + 100, 258);
+                    ctx.fillText(String(this.best), cvs.width / 2 + 80, 258);
+                    ctx.strokeText(String(this.best), cvs.width / 2 + 80, 258);
                 }
             },
 
