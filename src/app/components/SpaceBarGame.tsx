@@ -68,9 +68,9 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
 
         const restartBtn = {
             x: cvs.width / 2 - 30,
-            y: cvs.height / 2 - 50,
+            y: cvs.height / 2 - 60,
             w: 96,
-            h: 45
+            h: 70
         }
 
 
@@ -393,12 +393,63 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
                     ctx.fillText(String(this.best), cvs.width / 2 + 80, 258);
                     ctx.strokeText(String(this.best), cvs.width / 2 + 80, 258);
                 }
+
+                Medal.draw(this.value, this.best);
             },
 
             reset: function () {
                 this.value = 0;
             }
         }
+
+        //Medal
+
+        const Medal = {
+            medals: [
+                { sX: 311, sY: 113 }, // white
+                { sX: 360, sY: 159 }, // bronze
+                { sX: 360, sY: 112 }, // Silver
+                { sX: 311, sY: 159 }  // gold
+            ],
+            x: cvs.width / 2 - 105,
+            y: 203,
+            w: 45,
+            h: 45,
+            wd: 50,
+            hd: 50,
+
+            draw: function (currentScore: number, bestScore: number) {
+                if (state.current === state.over) {
+                    let medalIndex;
+
+                    if (currentScore >= bestScore) {
+                        medalIndex = 3;
+                    } else {
+
+                        const scoreDiff = bestScore - currentScore;
+
+
+                        if (scoreDiff <= 5) {
+                            medalIndex = 2;
+                        } else if (scoreDiff <= 10) {
+                            medalIndex = 1;
+                        } else if (scoreDiff <= 20) {
+                            medalIndex = 0;
+                        } else {
+                            return;
+                        }
+                    }
+
+                    console.log(medalIndex);
+
+                    const medal = this.medals[medalIndex];
+                    ctx.drawImage(sprite, medal.sX, medal.sY, this.w, this.h, this.x, this.y, this.wd, this.hd);
+                }
+            }
+
+
+        };
+
 
 
 
