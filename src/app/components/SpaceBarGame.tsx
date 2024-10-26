@@ -179,7 +179,7 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
 
             frame: 0,
 
-            gravity: 0.25,
+            gravity: 0.20,
             jump: 4.6,
             speed: 0,
             rotation: 0,
@@ -300,7 +300,7 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
 
             w: 53,
             h: 400,
-            gap: 85,
+            gap: 95,
             maxYPos: -150,
             dx: difficulty,
 
