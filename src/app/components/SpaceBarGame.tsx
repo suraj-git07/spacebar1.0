@@ -161,6 +161,7 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty, onClose }) => {
 
                             })
                             .catch((error) => {
+                                onClose();
                                 console.error("Transaction failed:", error);
                                 // Handle any errors here, such as showing an error message to the player
                             });
