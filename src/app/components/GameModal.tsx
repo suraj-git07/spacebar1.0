@@ -1,5 +1,4 @@
 import React from "react";
-import { X } from "lucide-react";
 import SpaceBarGame from "./SpaceBarGame";
 
 interface GameModalProps {
