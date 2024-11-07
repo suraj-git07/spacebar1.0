@@ -12,7 +12,7 @@ export const myChain = defineChain(myChainId);
 export const contract = getContract({
     client: client,
     chain: myChain,
-    address: "0x2f53c07938C93B66cDFcAf20E754E02c46520116",
+    address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || "",
     abi: [
         {
             "inputs": [

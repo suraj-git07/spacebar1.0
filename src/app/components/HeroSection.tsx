@@ -7,7 +7,7 @@ import Image from 'next/image';
 import DifficultyModal from './DifficultyModal';
 import { contract } from "../../../utils/constants";
 import { prepareContractCall } from "thirdweb";
-import { TransactionButton, useActiveAccount, useReadContract, useSendTransaction } from "thirdweb/react";
+import { TransactionButton, useActiveAccount, useReadContract } from "thirdweb/react";
 import { ethers } from "ethers";
 
 
@@ -28,7 +28,7 @@ const HeroSection = () => {
 
   const account = useActiveAccount();
 
-  const { data: userBal, isLoading: loadingUserBal } = useReadContract({
+  const { data: userBal } = useReadContract({
     contract,
     method: "viewBalance",
     params: [account?.address || ""],

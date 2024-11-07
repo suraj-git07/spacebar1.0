@@ -1,16 +1,17 @@
+/* eslint-disable */
 'use client';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { contract } from "../../../utils/constants";
 import { useActiveAccount, useReadContract } from "thirdweb/react";
 import { useSendTransaction } from "thirdweb/react";
 import { prepareContractCall } from "thirdweb";
-import { ethers } from "ethers";
 
 interface SpaceBarGameProps {
     difficulty: number;
+    onClose: () => void;
 }
 
-const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
+const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty, onClose }) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
     const canvasWidth = window.innerWidth;
@@ -24,24 +25,22 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
         params: [account?.address || ""],
     });
 
-    const { data: userBal, isLoading: loadingUserBal, refetch: refetchUserBal } = useReadContract({
+    const { refetch: refetchUserBal } = useReadContract({
         contract,
         method: "viewBalance",
         params: [account?.address || ""],
     });
 
-    const userBalEth = userBal ? parseFloat(ethers.utils.formatEther(userBal?.toString())).toFixed(2) : 0;
-    // console.log("hs loaded value is", !loadingHighScore && highscore !== undefined ? parseInt(highscore.toString(), 10) : 0);
-    // console.log("user balance is", !loadingUserBal && userBal !== undefined ? userBalEth : 0);
+    // const userBalEth = userBal ? parseFloat(ethers.utils.formatEther(userBal?.toString())).toFixed(2) : 0;
 
 
-    const { mutate: sendTx, data: transactionResult } = useSendTransaction();
+    const { mutate: sendTx } = useSendTransaction();
     const updateUser = async (scoreValue: number) => {
         const transaction = prepareContractCall({
             contract,
             method: "updateUser",
             params: [BigInt(scoreValue)],
-        });
+        }) as any;
 
         return new Promise((resolve, reject) => {
             sendTx(transaction, {
@@ -153,12 +152,11 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
                                 // Once the transaction is completed, reset the game state
                                 alert("Data Updated OnChain");
                                 refetchbal()
-                                // console.log("highscore after refetch", highscore ? parseInt(highscore.toString(), 10) : 0);
-                                // console.log("userbal after refetch", userBal ? parseFloat(ethers.utils.formatEther(userBal?.toString())).toFixed(2) : 0);
-                                pipes.reset();
-                                bird.speedReset();
-                                score.reset();
-                                state.current = state.getReady;
+                                // pipes.reset();
+                                // bird.speedReset();
+                                // score.reset();
+                                // state.current = state.getReady;
+                                onClose();
 
 
                             })
