@@ -1,4 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+'use client';
+import React, { useEffect, useState, useRef } from 'react';
+import { contract } from "../../../utils/constants";
+import { useActiveAccount, useReadContract } from "thirdweb/react";
+import { useSendTransaction } from "thirdweb/react";
+import { prepareContractCall } from "thirdweb";
+import { ethers } from "ethers";
 
 interface SpaceBarGameProps {
     difficulty: number;
@@ -9,6 +15,46 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
 
     const canvasWidth = window.innerWidth;
     const canvasHeight = window.innerHeight;
+
+
+    const account = useActiveAccount();
+    const { data: highscore, isLoading: loadingHighScore, refetch: refetchhighscore } = useReadContract({
+        contract,
+        method: "getHighScore",
+        params: [account?.address || ""],
+    });
+
+    const { data: userBal, isLoading: loadingUserBal, refetch: refetchUserBal } = useReadContract({
+        contract,
+        method: "viewBalance",
+        params: [account?.address || ""],
+    });
+
+    const userBalEth = userBal ? parseFloat(ethers.utils.formatEther(userBal?.toString())).toFixed(2) : 0;
+    // console.log("hs loaded value is", !loadingHighScore && highscore !== undefined ? parseInt(highscore.toString(), 10) : 0);
+    // console.log("user balance is", !loadingUserBal && userBal !== undefined ? userBalEth : 0);
+
+
+    const { mutate: sendTx, data: transactionResult } = useSendTransaction();
+    const updateUser = async (scoreValue: number) => {
+        const transaction = prepareContractCall({
+            contract,
+            method: "updateUser",
+            params: [BigInt(scoreValue)],
+        });
+
+        return new Promise((resolve, reject) => {
+            sendTx(transaction, {
+                onSuccess: resolve,
+                onError: reject,
+            });
+        })
+    };
+
+    const refetchbal = async () => {
+        await refetchhighscore();
+        await refetchUserBal();
+    }
 
     useEffect(() => {
         const cvs = canvasRef.current;
@@ -98,10 +144,28 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
                         clickY >= restartBtn.y &&
                         clickY <= restartBtn.y + restartBtn.h
                     ) {
-                        pipes.reset();
-                        bird.speedReset();
-                        score.reset();
-                        state.current = state.getReady;
+                        // func call to update user state and then these this happens when it is completed
+
+                        // func take highscore as score.value , will be both argumenys
+
+                        updateUser(score.value)
+                            .then(() => {
+                                // Once the transaction is completed, reset the game state
+                                alert("Data Updated OnChain");
+                                refetchbal()
+                                // console.log("highscore after refetch", highscore ? parseInt(highscore.toString(), 10) : 0);
+                                // console.log("userbal after refetch", userBal ? parseFloat(ethers.utils.formatEther(userBal?.toString())).toFixed(2) : 0);
+                                pipes.reset();
+                                bird.speedReset();
+                                score.reset();
+                                state.current = state.getReady;
+
+
+                            })
+                            .catch((error) => {
+                                console.error("Transaction failed:", error);
+                                // Handle any errors here, such as showing an error message to the player
+                            });
                     }
                     break;
                 default:
@@ -236,8 +300,6 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
 
 
 
-
-
         const getReady = {
             sX: 0,
             sY: 228,
@@ -277,11 +339,7 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
 
 
 
-
-
         // PIPES
-
-
         type Position = {
             x: number;
             y: number;
@@ -355,8 +413,8 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
                         this.position.shift();
                         score.value += 1;
 
-                        score.best = Math.max(score.value, score.best);
-                        localStorage.setItem("best", String(score.best));
+                        // score.best = Math.max(score.value, score.best);
+                        // localStorage.setItem("best", String(score.best));
                     }
                 }
             },
@@ -371,7 +429,7 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
 
 
         const score = {
-            best: parseInt(localStorage.getItem("best") ?? "0", 10),
+            best: !loadingHighScore && highscore !== undefined ? parseInt(highscore.toString(), 10) : 0,
             value: 0,
 
             draw: function () {
@@ -394,7 +452,7 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
                     ctx.strokeText(String(this.best), cvs.width / 2 + 80, 258);
                 }
 
-                Medal.draw(this.value, this.best);
+                Medal.draw(this.value, Number(this.best));
             },
 
             reset: function () {
@@ -440,7 +498,7 @@ const SpaceBarGame: React.FC<SpaceBarGameProps> = ({ difficulty }) => {
                         }
                     }
 
-                    console.log(medalIndex);
+                    // console.log(medalIndex);
 
                     const medal = this.medals[medalIndex];
                     ctx.drawImage(sprite, medal.sX, medal.sY, this.w, this.h, this.x, this.y, this.wd, this.hd);

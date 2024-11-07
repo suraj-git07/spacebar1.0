@@ -5,11 +5,14 @@ import WaitModal from "./waitModal";
 import GameDescriptionModal from "./GameDescModal";
 import Image from 'next/image';
 import DifficultyModal from './DifficultyModal';
+import { contract } from "../../../utils/constants";
+import { prepareContractCall } from "thirdweb";
+import { TransactionButton, useActiveAccount, useReadContract, useSendTransaction } from "thirdweb/react";
+import { ethers } from "ethers";
+
 
 const HeroSection = () => {
-  // const [modal, setmodal] = useState(false);
-  // const [create, setcreate] = useState(true);
-  // const [value, setValue] = useState<number>(0);
+
   const [gameModalOpen, setGameModalOpen] = useState(false);
   const [multiplayerModal, setMultiplayerModal] = useState(false);
   const [descModal, setDescModal] = useState(true);
@@ -23,12 +26,14 @@ const HeroSection = () => {
     setGameModalOpen(true);
   };
 
-  // const handleIncrement = () => {
-  //   setValue(value + 100);
-  // };
-  // const handleDecrement = () => {
-  //   setValue(Math.max(value - 100, 0));
-  // };
+  const account = useActiveAccount();
+
+  const { data: userBal, isLoading: loadingUserBal } = useReadContract({
+    contract,
+    method: "viewBalance",
+    params: [account?.address || ""],
+  });
+  const userBalance = userBal ? parseFloat(ethers.utils.formatEther(userBal)) : 0;
 
   return (
     <div className="bg-[url('../../public/bgimg.jpg')] w-full h-[100vh]  from-blue-200 via-blue-400 to-blue-900 max-sm:bg-[url('../../public/homemob.png')] max-sm:w-50  bg-center bg-cover max-md:h-[130vh] " >
@@ -69,14 +74,26 @@ const HeroSection = () => {
             sizes="(max-width: 768px) 180px, 220px"
             priority
           />
-          <button
-            onClick={() => setDifficultyModalOpen(true)}
-            className="relative z-30 inline-flex items-center justify-center w-auto px-8 py-3 overflow-hidden font-bold text-gray-500 transition-all duration-500 border mb-5 border-gray-200 rounded-md cursor-pointer group ease bg-gradient-to-b from-white to-gray-50  hover:from-gray-50 hover:to-white active:to-white font-regular font-mono text-xl max-md:text-xl"
-          >
-            <span className="w-full h-0.5 absolute bottom-0 left-0 bg-gray-100 group-active:bg-transparent"></span>
-            <span className="h-full w-0.5 absolute bottom-0 right-0 bg-gray-100 group-active:bg-transparent"></span>
-            Play solo
-          </button>
+          <div className="relative z-30 inline-flex items-center px-2 py-1 justify-center w-auto  overflow-hidden font-bold text-gray-500 transition-all duration-500 border mb-5 border-gray-200 rounded-md cursor-pointer group ease bg-gradient-to-b from-white to-gray-50  hover:from-gray-50 hover:to-white active:to-white font-regular font-mono text-xl max-md:text-xl">
+            <TransactionButton
+
+              transaction={() => {
+                if (userBalance >= 5) {
+                  return prepareContractCall({
+                    contract,
+                    method: "takePlayFee",
+                  });
+                } else {
+                  alert('Insufficient balance. Please top up your account.');
+                  return Promise.reject(new Error('Insufficient balance'));
+                }
+              }}
+              onTransactionConfirmed={() => setDifficultyModalOpen(true)}
+              onError={(error) => { alert('Transaction failed. Please try again.'); console.error('Transaction failed', error); }}
+            >
+              Play solo
+            </TransactionButton>
+          </div>
         </div>
       </div>
 
